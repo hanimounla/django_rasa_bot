@@ -36,4 +36,3 @@ htmlcov/
 .env
 *.db-journal
 .vscode
-*.tar.gz
