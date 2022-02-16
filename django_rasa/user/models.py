@@ -23,10 +23,7 @@ class User(AbstractUser):
         "bank Card Number", null=True, blank=True, max_length=50
     )
     profile_image = models.ImageField(
-        "Profile Image",
-        upload_to="profile_images",
-        null=True,
-        blank=True,
+        "Profile Image", upload_to="profile_images", null=True, blank=True,
     )
 
     @property
@@ -48,7 +45,9 @@ class User(AbstractUser):
 
 class Student(models.Model):
     id = models.IntegerField("Student ID", primary_key=True)
-    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, related_name="student_user")
+    user = models.OneToOneField(
+        User, on_delete=models.CASCADE, null=True, related_name="student_user"
+    )
 
     class Meta:
         verbose_name = "Student"
@@ -56,7 +55,9 @@ class Student(models.Model):
 
 
 class Lecturer(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, related_name="lecturer_user")
+    user = models.OneToOneField(
+        User, on_delete=models.CASCADE, null=True, related_name="lecturer_user"
+    )
 
     certificate = models.CharField("Certificate", max_length=50, null=True, blank=True)
     certificate_date = models.DateField("Certificate Date", null=True, blank=True)

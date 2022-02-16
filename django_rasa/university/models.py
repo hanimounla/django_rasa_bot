@@ -6,6 +6,9 @@ from user.models import Lecturer
 class University(models.Model):
     name = models.CharField("University Name", max_length=50)
 
+    def __str__(self):
+        return self.name
+
     class Meta:
         verbose_name = "University"
         verbose_name_plural = "Universities"
@@ -18,6 +21,9 @@ class Faculty(models.Model):
         University, verbose_name="university", on_delete=models.SET_NULL, null=True
     )
 
+    def __str__(self):
+        return self.name
+
     class Meta:
         verbose_name = "Faculty"
         verbose_name_plural = "Faculties"
@@ -28,6 +34,9 @@ class Branche(models.Model):
     faculty = models.ForeignKey(
         Faculty, verbose_name="faculty", on_delete=models.SET_NULL, null=True
     )
+
+    def __str__(self):
+        return self.name
 
     class Meta:
         verbose_name = "Branche"
@@ -48,12 +57,16 @@ class Course(models.Model):
         blank=True,
     )
 
+    def __str__(self):
+        return self.title
+
     class Meta:
         verbose_name = "Course"
         verbose_name_plural = "Courses"
 
 
 class Class(models.Model):
+    title = models.CharField("Class Title", max_length=50)
     branche = models.ForeignKey(
         Branche, verbose_name="branche", on_delete=models.SET_NULL, null=True
     )
@@ -63,6 +76,9 @@ class Class(models.Model):
     lecturer = models.ForeignKey(
         Lecturer, verbose_name="lecturer", on_delete=models.SET_NULL, null=True
     )
+
+    def __str__(self):
+        return self.title
 
     class Meta:
         verbose_name = "Class"
