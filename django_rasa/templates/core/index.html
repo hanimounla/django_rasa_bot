@@ -8,8 +8,13 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="description" content="Unicat project">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- required for basic layout -->
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/botui/build/botui.min.css">
+	<!-- default theme - you can create your own theme -->
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/botui/build/botui-theme-default.css">
+
 	<link rel="stylesheet" type="text/css" href="{{STATIC_URL}}styles/bootstrap4/bootstrap.min.css">
-	<link href="{{STATIC_URL}}plugins/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" type="text/css" href="{{STATIC_URL}}plugins/font-awesome-4.7.0/css/font-awesome.min.css"  >
 	<link rel="stylesheet" type="text/css" href="{{STATIC_URL}}plugins/OwlCarousel2-2.2.1/owl.carousel.css">
 	<link rel="stylesheet" type="text/css" href="{{STATIC_URL}}plugins/OwlCarousel2-2.2.1/owl.theme.default.css">
 	<link rel="stylesheet" type="text/css" href="{{STATIC_URL}}plugins/OwlCarousel2-2.2.1/animate.css">
@@ -20,6 +25,24 @@
 <body>
 
 	<div class="super_container">
+
+		<div id="webchat">
+			<script src="https://cdn.jsdelivr.net/npm/rasa-webchat@1.5.0/lib/index.min.js"></script>
+			<script>
+				WebChat.default.init({
+					selector: "#webchat",
+					initPayload: "/get_started",
+					interval: 1000, // 1000 ms between each message
+					customData: {"sender": "django"}, // arbitrary custom data. Stay minimal as this will be added to the socket
+					socketUrl: "http://localhost:5005/",
+					title: "Connect",
+					subtitle: "The bot which connects people",
+					profileAvatar: "https://rasa.com/assets/img/demo/rasa_avatar.png",
+					showCloseButton: true,
+					fullScreenMode: false
+				})
+			</script>
+		</div>
 
 		<!-- Header -->
 		<header class="header">
