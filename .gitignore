@@ -36,3 +36,4 @@ htmlcov/
 .env
 *.db-journal
 .vscode
+rasabot/models/ASPU-model.tar.gz
