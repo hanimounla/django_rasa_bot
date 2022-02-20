@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 
+# from university.models import Faculty
 
 class User(AbstractUser):
     MALE, FEMALE = "m", "f"
@@ -26,18 +27,6 @@ class User(AbstractUser):
         "Profile Image", upload_to="profile_images", null=True, blank=True,
     )
 
-    @property
-    def is_student(self):
-        if hasattr(self, "student"):
-            return True
-        return False
-
-    @property
-    def is_lecturer(self):
-        if hasattr(self, "lecturer"):
-            return True
-        return False
-
     class Meta:
         verbose_name = "User"
         verbose_name_plural = "Users"
@@ -48,6 +37,13 @@ class Student(models.Model):
     user = models.OneToOneField(
         User, on_delete=models.CASCADE, null=True, related_name="student_user"
     )
+    # faculty = models.ForeignKey(Faculty, verbose_name="Faculty", null=True, blank=False, on_delete=models.SET_NULL)
+    
+    def __str__(self) -> str:
+        if self.user.first_name:
+            return self.user.first_name + " " + self.user.last_name
+        else:
+            return self.user
 
     class Meta:
         verbose_name = "Student"

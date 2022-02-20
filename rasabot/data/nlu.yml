@@ -16,6 +16,7 @@ nlu:
     - goodmorning
     - goodevening
     - good afternoon
+    - howdy
 
 - intent: goodbye
   examples: |
@@ -29,6 +30,7 @@ nlu:
     - see you around
     - bye bye
     - see you later
+    - see ya
 
 - intent: affirm
   examples: |
@@ -38,6 +40,7 @@ nlu:
     - of course
     - that sounds good
     - correct
+    - okay 
 
 - intent: deny
   examples: |
@@ -48,6 +51,7 @@ nlu:
     - don't like that
     - no way
     - not really
+    - nope
 
 - intent: mood_great
   examples: |

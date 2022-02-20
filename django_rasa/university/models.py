@@ -2,7 +2,6 @@ from django.db import models
 
 from user.models import Lecturer
 
-# Shouldn't be able to delete the university
 class University(models.Model):
     name = models.CharField("University Name", max_length=50)
 
@@ -14,11 +13,27 @@ class University(models.Model):
         verbose_name_plural = "Universities"
 
 
+class Branche(models.Model):
+    name = models.CharField("Branche", max_length=50)
+    address = models.CharField("Address", max_length=150)
+    university = models.ForeignKey(
+        University, verbose_name="university", on_delete=models.SET_NULL, null=True
+    )
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = "Branche"
+        verbose_name_plural = "Branches"
+        
+        
+
 class Faculty(models.Model):
     name = models.CharField("Faculty Name", max_length=50)
     open_date = models.DateField("Open Date", null=True, blank=True)
-    university = models.ForeignKey(
-        University, verbose_name="university", on_delete=models.SET_NULL, null=True
+    branche = models.ForeignKey(
+        Branche, verbose_name="branche", on_delete=models.SET_NULL, null=True
     )
 
     def __str__(self):
@@ -29,24 +44,9 @@ class Faculty(models.Model):
         verbose_name_plural = "Faculties"
 
 
-class Branche(models.Model):
-    name = models.CharField("Branche", max_length=50)
-    faculty = models.ForeignKey(
-        Faculty, verbose_name="faculty", on_delete=models.SET_NULL, null=True
-    )
-
-    def __str__(self):
-        return self.name
-
-    class Meta:
-        verbose_name = "Branche"
-        verbose_name_plural = "Branches"
-
-
 class Course(models.Model):
     title = models.CharField("Course Title", max_length=50)
     total_hours = models.IntegerField("Total Course Hours")
-
     faculties = models.ManyToManyField(Faculty, related_name="faculty")
     prev_course = models.ForeignKey(
         "self",
@@ -67,6 +67,7 @@ class Course(models.Model):
 
 class Class(models.Model):
     title = models.CharField("Class Title", max_length=50)
+    class_date = models.DateField("Class Date", null=True, blank=True)
     branche = models.ForeignKey(
         Branche, verbose_name="branche", on_delete=models.SET_NULL, null=True
     )
