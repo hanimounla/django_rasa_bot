@@ -26,7 +26,10 @@
 
 	<div class="super_container">
 
-		<div id="webchat">
+		<div id="rasa-chat-widget" data-websocket-url="http://localhost:5005/"></div>
+		<script src="https://unpkg.com/@rasahq/rasa-chat" type="application/javascript"></script>
+
+		{% comment %} <div id="webchat">
 			<script src="https://cdn.jsdelivr.net/npm/rasa-webchat@1.5.0/lib/index.min.js"></script>
 			<script>
 				WebChat.default.init({
@@ -42,7 +45,7 @@
 					fullScreenMode: false
 				})
 			</script>
-		</div>
+		</div> {% endcomment %}
 
 		<!-- Header -->
 		<header class="header">
