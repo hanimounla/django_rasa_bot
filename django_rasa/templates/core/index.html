@@ -25,8 +25,12 @@
 <body>
 
 	<div class="super_container">
-
-		<div id="rasa-chat-widget" data-websocket-url="http://localhost:5005/"></div>
+		<div
+			data-height="500"
+			data-root-element-id="storybook-preview-wrapper"
+			data-websocket-url="http://localhost:5005"
+			id="rasa-chat-widget"
+		/>
 		<script src="https://unpkg.com/@rasahq/rasa-chat" type="application/javascript"></script>
 
 		{% comment %} <div id="webchat">
@@ -35,8 +39,8 @@
 				WebChat.default.init({
 					selector: "#webchat",
 					initPayload: "/get_started",
-					interval: 500, // 1000 ms between each message
-					customData: {"sender": "django"}, // arbitrary custom data. Stay minimal as this will be added to the socket
+					interval: 1000, // 1000 ms between each message
+					customData: {"sender": "user"}, // arbitrary custom data. Stay minimal as this will be added to the socket
 					socketUrl: "http://localhost:5005/",
 					title: "Connect",
 					subtitle: "The bot which connects people",

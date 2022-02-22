@@ -11,3 +11,8 @@ rules:
   steps:
   - intent: bot_challenge
   - action: utter_iamabot
+
+- rule: Say 'Am this age' anytime the user says old
+  steps:
+  - intent: bot_old
+  - intent: utter_botold
