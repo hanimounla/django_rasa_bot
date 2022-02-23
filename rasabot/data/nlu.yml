@@ -93,4 +93,8 @@ nlu:
 - intent: bot_old
   examples: |
     - how old are you?
-    - how many years are you?
+
+- intent: current_time
+  examples: |
+    - what time is it?
+    - what is the time

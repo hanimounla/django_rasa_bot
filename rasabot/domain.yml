@@ -8,6 +8,12 @@ intents:
   - mood_great
   - mood_unhappy
   - bot_challenge
+  - utter_botold
+  
+
+actions:
+  - action_hello_world
+
 
 responses:
   utter_greet:
@@ -31,6 +37,9 @@ responses:
 
   utter_botold:
   - text: "I am 10 years old."
+
+  utter_botold:
+  - action: action_hello_world
 
 session_config:
   session_expiration_time: 60

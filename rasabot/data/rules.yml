@@ -12,7 +12,12 @@ rules:
   - intent: bot_challenge
   - action: utter_iamabot
 
-- rule: Say 'Am this age' anytime the user says old
+- rule: Say bot_old anytime the user says bot_old
   steps:
   - intent: bot_old
-  - intent: utter_botold
+  - action: utter_botold
+
+- rule: Say current_time anytime the user current_time
+  steps:
+  - intent: current_time
+  - action: action_hello_world
