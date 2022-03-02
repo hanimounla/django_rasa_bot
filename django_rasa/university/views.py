@@ -1,3 +1,9 @@
 from django.shortcuts import render
 
-# Create your views here.
+from .models import Course
+
+def courses(request):
+    ctx = {
+        'courses': Course.objects.all()
+    }
+    return render(request, 'university/courses.html', ctx)
