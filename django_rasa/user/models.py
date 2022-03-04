@@ -40,10 +40,10 @@ class Student(models.Model):
     # faculty = models.ForeignKey(Faculty, verbose_name="Faculty", null=True, blank=False, on_delete=models.SET_NULL)
     
     def __str__(self) -> str:
-        if self.user.first_name:
+        if self.user.first_name and self.user.last_name:
             return self.user.first_name + " " + self.user.last_name
         else:
-            return self.user
+            return str(self.user)
 
     class Meta:
         verbose_name = "Student"
@@ -57,6 +57,12 @@ class Lecturer(models.Model):
 
     certificate = models.CharField("Certificate", max_length=50, null=True, blank=True)
     certificate_date = models.DateField("Certificate Date", null=True, blank=True)
+    
+    def __str__(self) -> str:
+        if self.user.first_name and self.user.last_name:
+            return self.user.first_name + " " + self.user.last_name
+        else:
+            return str(self.user)
 
     class Meta:
         verbose_name = "Lecturer"

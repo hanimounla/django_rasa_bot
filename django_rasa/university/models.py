@@ -1,6 +1,6 @@
 from django.db import models
 
-from user.models import Lecturer
+from user.models import Lecturer, Student
 
 class University(models.Model):
     name = models.CharField("University Name", max_length=50)
@@ -84,3 +84,18 @@ class Class(models.Model):
     class Meta:
         verbose_name = "Class"
         verbose_name_plural = "Classes"
+
+
+class StudentDegree(models.Model):
+    student = models.ForeignKey(Student, verbose_name="Student", on_delete=models.CASCADE)
+    faculty = models.ForeignKey(Faculty, verbose_name="Faculty", on_delete=models.CASCADE)
+    course = models.ForeignKey(Course, verbose_name="Course", on_delete=models.CASCADE)
+    degree = models.IntegerField("Degree")
+    
+    def __str__(self):
+        return f"Student: {self.student} - Course: {self.course} - Degree: {self.degree}"
+    
+    class Meta:
+        verbose_name = "Student Degree"
+        verbose_name_plural = "Students Degrees"
+    

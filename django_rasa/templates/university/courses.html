@@ -8,7 +8,7 @@
         <div class="row">
 
             <!-- Courses Main Content -->
-            <div class="col-lg-8">
+            <div class="col-lg-12">
                 <div class="courses_search_container">
                     <form action="#" id="courses_search_form" class="courses_search_form d-flex flex-row align-items-center justify-content-start">
                         <input type="search" class="courses_search_input" placeholder="Search Courses" required="required">
@@ -26,7 +26,7 @@
                         
                         {% for course in courses %}
                         <!-- Course -->
-                        <div class="col">
+                        <div class="col-lg-4">
                             <div class="course">
                                 <div class="course_image"><img src="{{STATIC_URL}}images/course_{{forloop.counter}}.jpg" alt=""></div>
                                 <div class="course_body">
