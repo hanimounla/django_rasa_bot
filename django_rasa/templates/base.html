@@ -20,6 +20,7 @@
 	<link rel="stylesheet" type="text/css" href="{{STATIC_URL}}plugins/OwlCarousel2-2.2.1/animate.css">
 	<link rel="stylesheet" type="text/css" href="{{STATIC_URL}}styles/main_styles.css">
 	<link rel="stylesheet" type="text/css" href="{{STATIC_URL}}styles/responsive.css">
+	{% block extra_css %}{% endblock extra_css %}
 </head>
 
 <body>
@@ -75,7 +76,14 @@
 										</li>
 									</ul>
 									<div class="top_bar_login ml-auto">
-										<div class="login_button"><a href="#">Student Login</a></div>
+										{% if user.is_authenticated %}
+										<div class="login_button">
+											<a href="{% url 'user:profile' %}">Profile</a>
+										</div>
+										<div class=""></div>
+										{% else %}
+										<div class="login_button"><a href="{% url 'user:login' %}">Student Login</a></div>
+										{% endif %}
 									</div>
 								</div>
 							</div>
@@ -98,7 +106,9 @@
 								<nav class="main_nav_contaner ml-auto">
 									<ul class="main_nav">
 										<li><a href="/#">Home</a></li>
-										<li><a href="/#features">Features</a></li>
+										<li><a href="/#about">About</a></li>
+										<li><a href="{% url 'university:branches' %}">Branches</a></li>
+										<li><a href="{% url 'university:faculties' %}">Faculties</a></li>
 										<li><a href="{% url 'university:courses' %}">Courses</a></li>
 									</ul>
 									<div class="search_button"><i class="fa fa-search" aria-hidden="true"></i></div>

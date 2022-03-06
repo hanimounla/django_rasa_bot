@@ -27,7 +27,6 @@ class Branche(models.Model):
         verbose_name = "Branche"
         verbose_name_plural = "Branches"
         
-        
 
 class Faculty(models.Model):
     name = models.CharField("Faculty Name", max_length=50)
@@ -90,7 +89,7 @@ class StudentDegree(models.Model):
     student = models.ForeignKey(Student, verbose_name="Student", on_delete=models.CASCADE)
     faculty = models.ForeignKey(Faculty, verbose_name="Faculty", on_delete=models.CASCADE)
     course = models.ForeignKey(Course, verbose_name="Course", on_delete=models.CASCADE)
-    degree = models.IntegerField("Degree")
+    degree = models.IntegerField("Degree") #validation
     
     def __str__(self):
         return f"Student: {self.student} - Course: {self.course} - Degree: {self.degree}"

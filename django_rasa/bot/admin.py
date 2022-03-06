@@ -8,6 +8,7 @@ from .models import QuestionCategory, Question, Answer
 def create_bot_files():
     nlu_file_path = 'rasa_files/data/nlu.yml'
     domain_file_path = 'rasa_files/domain.yml'
+    stories_file_path = 'rasa_files/data/stories.yml'
     
     nlu_string = "version: \"3.0\" \n \nnlu: \n"
     for category in QuestionCategory.objects.all():
@@ -44,6 +45,10 @@ class BotAdmin(admin.ModelAdmin):
     def save_model(self, request, obj, form, change):
         create_bot_files()
         super().save_model(request, obj, form, change)
+        
+    def delete_model(self, request, obj):
+        create_bot_files()
+        super().delete_model(request, obj)
     
 admin.site.register(QuestionCategory, BotAdmin)
 admin.site.register(Question, BotAdmin)
