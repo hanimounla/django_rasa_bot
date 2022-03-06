@@ -49,6 +49,7 @@ entities:
   - company
   - language
   - product
+  - course_name
 
 slots:
   username:
@@ -57,8 +58,16 @@ slots:
     mappings:
     - type: custom
   
-
-
+  specialization:
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: false
+  course_name:
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: false
   
 responses:
   
@@ -287,11 +296,10 @@ responses:
 
 actions:
 - action_save_name
+- query_degree
 
 session_config:
   carry_over_slots_to_new_session: true
   session_expiration_time: 60
-
-
 
 

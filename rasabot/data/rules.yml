@@ -1,13 +1,9 @@
 version: "3.0"
 
+
 rules:
-
-- rule: Say goodbye anytime the user says goodbye
+- rule: handle out of scope questions
   steps:
-  - intent: goodbye
-  - action: utter_goodbye
+  - intent: out_of_scope
+  - action: utter_ask_rephrase
 
-- rule: Say 'I am a bot' anytime the user challenges
-  steps:
-  - intent: bot_challenge
-  - action: utter_iamabot

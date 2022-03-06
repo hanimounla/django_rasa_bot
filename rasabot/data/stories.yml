@@ -499,3 +499,11 @@ stories:
   - intent: username
   - action: utter_name
 
+
+
+
+- story: student degree
+  steps:
+  - intent: degree
+  - action: query_degree
+
