@@ -1,5 +1,11 @@
 version: "3.0"
 
+config:
+  store_entities_as_slots: true
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true
+
 intents:
   - greet
   - goodbye
@@ -297,9 +303,4 @@ responses:
 actions:
 - action_save_name
 - query_degree
-
-session_config:
-  carry_over_slots_to_new_session: true
-  session_expiration_time: 60
-
 
