@@ -32,7 +32,7 @@ class Queryspecialization(Action):
         specialization slot. Outputs an utterance to the user w/ the relevent 
         information for one of the returned rows.
         """
-        conn = DbQueryingMethods.create_connection(db_file="./django_rasa/db")
+        conn = DbQueryingMethods.create_connection(db_file="./django_rasa/db.sqlite3")
 
         slot_value = tracker.get_slot("specialization")
         slot_name = "Type"
@@ -77,7 +77,7 @@ class QueryDegree(Action):
         type only, topic only in that order. Output is an utterance directly to the
         user with a randomly selected matching row.
         """
-        conn = DbQueryingMethods.create_connection(db_file="./django_rasa/db")
+        conn = DbQueryingMethods.create_connection(db_file="./django_rasa/db.sqlite3")
 
         # get matching entries for resource type
         course_name_value = tracker.get_slot("course_name")

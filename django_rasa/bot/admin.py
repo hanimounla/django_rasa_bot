@@ -5,6 +5,11 @@ from django.core.files.storage import default_storage
 from .models import QuestionCategory, Question, Answer
 
 
+def save_file(string, path):
+    if default_storage.exists(path):
+        default_storage.delete(path)
+    default_storage.save(path, ContentFile(string))
+
 def create_bot_files():
     nlu_file_path = 'rasa_files/data/nlu.yml'
     domain_file_path = 'rasa_files/domain.yml'
@@ -16,17 +21,12 @@ def create_bot_files():
         for question in Question.objects.filter(question_category=category):
             nlu_string += f"        - {question} \n"
         nlu_string += "\n \n"
-        
-    if default_storage.exists(nlu_file_path):
-        default_storage.delete(nlu_file_path)
-    default_storage.save(nlu_file_path, ContentFile(nlu_string))
-    
+    save_file(nlu_string, nlu_file_path)
     domain_string = "version: \"3.0\" \n \nintents: \n"
     for category in QuestionCategory.objects.all():
         domain_string += f" - {category} \n"
         
     domain_string += "\n \nresponses: \n"
-    
     for category in QuestionCategory.objects.all():
         domain_string += f"     utter_{category}: \n"
         for question in Question.objects.filter(question_category=category):
@@ -35,10 +35,10 @@ def create_bot_files():
             except:
                 pass
         domain_string += "\n \n"
-            
-    if default_storage.exists(domain_file_path):
-        default_storage.delete(domain_file_path)
-    default_storage.save(domain_file_path, ContentFile(domain_string))
+    save_file(domain_string, domain_file_path)
+    
+    stories_string = "version: \"3.0\" \n \stories: \n"
+    
          
         
 class BotAdmin(admin.ModelAdmin):

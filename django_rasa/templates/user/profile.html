@@ -14,7 +14,7 @@
             <div class="col">
                 <div class="section_title_container text-center">
                     <h2 class="section_title">Welcome</h2>
-                    <div class="section_subtitle"><p>{{request.user}}</p></div>
+                    <h3 class="section_title">Profile</h3>
                 </div>
             </div>
         </div>
@@ -25,17 +25,25 @@
                 <div class="feature_content">
                     <!-- Accordions -->
                     <div class="accordions">
-                        
                         <div class="elements_accordions">
-
+                            <h4>Student Information</h4>
                             <div class="accordion_container">
                                 <div class="accordion d-flex flex-row align-items-center active"><div>Username: {{user}}</div></div>
                                 <div class="accordion d-flex flex-row align-items-center active"><div>First name: {{user.first_name}}</div></div>
                                 <div class="accordion d-flex flex-row align-items-center active"><div>Father name: {{user.father_name}}</div></div>
                                 <div class="accordion d-flex flex-row align-items-center active"><div>Last name: {{user.last_name}}</div></div>
+                                <div class="accordion d-flex flex-row align-items-center active"><div>Phone: {{user.phone}}</div></div>
+                                <div class="accordion d-flex flex-row align-items-center active"><div>Gender: {{user.gender}}</div></div>
+                                <div class="accordion d-flex flex-row align-items-center active"><div>Address: {{user.address}}</div></div>
+                                <div class="accordion d-flex flex-row align-items-center active"><div>Nationality: {{user.nationality}}</div></div>
+                                <div class="accordion d-flex flex-row align-items-center active"><div>Birth Date: {{user.birth_date}}</div></div>
+                            </div>
+                            <h4>Bank Info</h4>
+                            <div class="accordion_container">
+                                <div class="accordion d-flex flex-row align-items-center active"><div>Bank: {{user.bank_name}}</div></div>
+                                <div class="accordion d-flex flex-row align-items-center active"><div>Bank Card: {{user.bank_card_num}}</div></div>
                             </div>
                         </div>
-
                     </div>
                     <!-- Accordions End -->
                 </div>
@@ -48,7 +56,7 @@
                     <div class="accordions">
                         
                         <div class="elements_accordions">
-
+                            <h4>Courses and Degrees</h4>
                             <div class="accordion_container">
                                 {% for degree in degrees %}
                                 <div class="accordion d-flex flex-row align-items-center active">
@@ -57,15 +65,9 @@
                                 {% endfor %}
                             </div>
                         </div>
-
                     </div>
-
-                    
                     <!-- Accordions End -->
                 </div>
-
-
-                
             </div>
 
             {% comment %} <!-- Feature Video -->

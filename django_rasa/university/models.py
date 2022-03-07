@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.exceptions import ValidationError
 
 from user.models import Lecturer, Student
 
@@ -84,12 +85,18 @@ class Class(models.Model):
         verbose_name = "Class"
         verbose_name_plural = "Classes"
 
-
+def validate_degree(value):
+    if value < 0 or value > 100:
+        raise ValidationError(
+           "Degree must be in 0 - 100 range",
+        )
+        
+        
 class StudentDegree(models.Model):
     student = models.ForeignKey(Student, verbose_name="Student", on_delete=models.CASCADE)
     faculty = models.ForeignKey(Faculty, verbose_name="Faculty", on_delete=models.CASCADE)
     course = models.ForeignKey(Course, verbose_name="Course", on_delete=models.CASCADE)
-    degree = models.IntegerField("Degree") #validation
+    degree = models.IntegerField("Degree", validators=[validate_degree])
     
     def __str__(self):
         return f"Student: {self.student} - Course: {self.course} - Degree: {self.degree}"
