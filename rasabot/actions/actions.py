@@ -32,10 +32,10 @@ class Queryspecialization(Action):
         specialization slot. Outputs an utterance to the user w/ the relevent 
         information for one of the returned rows.
         """
-        conn = DbQueryingMethods.create_connection(db_file="./django_rasa/db.sqlite3")
+        conn = DbQueryingMethods.create_connection(db_file="./django_rasa/db")
 
         slot_value = tracker.get_slot("specialization")
-        slot_name = "Type"
+        slot_name = "Faculty Name"
         
         # adding fuzzy matching, fingers crossed
         slot_value = DbQueryingMethods.get_closest_value(conn=conn,
@@ -49,16 +49,6 @@ class Queryspecialization(Action):
         return 
 
 
-# adding fuzzy matching, fingers crossed
-        slot_value = DbQueryingMethods.get_closest_value(conn=conn,
-            slot_name=slot_name,slot_value=slot_value)[0]
-
-        get_query_results = DbQueryingMethods.select_by_slot(conn=conn,
-            slot_name=slot_name,slot_value=slot_value)
-        return_text = DbQueryingMethods.rows_info_as_text(get_query_results)
-        dispatcher.utter_message(text=str(return_text))
-
-        return 
 
 
 
@@ -77,17 +67,17 @@ class QueryDegree(Action):
         type only, topic only in that order. Output is an utterance directly to the
         user with a randomly selected matching row.
         """
-        conn = DbQueryingMethods.create_connection(db_file="./django_rasa/db.sqlite3")
+        conn = DbQueryingMethodsDegree.create_connection(db_file="./django_rasa/db")
 
         # get matching entries for resource type
-        course_name_value = tracker.get_slot("course_name")
+        course_name_value = tracker.get_slot("course")
         # make sure we don't pass None to our fuzzy matcher
         if course_name_value == None:
             course_name_value = " "
-        course_name_name = "Type"
-        course_name_value = DbQueryingMethods.get_closest_value(conn=conn,
+        course_name_name = "degree"
+        course_name_value = DbQueryingMethodsDegree.get_closest_value(conn=conn,
             slot_name=course_name_name,slot_value=course_name_value)[0]
-        query_results_type = DbQueryingMethods.select_by_slot(conn=conn,
+        query_results_type = DbQueryingMethodsDegree.select_by_slot(conn=conn,
             slot_name=course_name_value,slot_value=course_name_value)
 
         # # get matching for resource topic
@@ -112,13 +102,13 @@ class QueryDegree(Action):
 
         # return info for both, or topic match or type match or nothing
         if len(query_results_overlap)>0:
-            return_text = DbQueryingMethods.rows_info_as_text(query_results_overlap)
+            return_text = DbQueryingMethodsDegree.rows_info_as_text(query_results_overlap)
         elif len(list(query_results_topic))>0:
-            return_text = apology + DbQueryingMethods.rows_info_as_text(query_results_topic)
+            return_text = apology + DbQueryingMethodsDegree.rows_info_as_text(query_results_topic)
         elif len(list(query_results_type))>0:
-            return_text = apology + DbQueryingMethods.rows_info_as_text(query_results_type)
+            return_text = apology + DbQueryingMethodsDegree.rows_info_as_text(query_results_type)
         else:
-            return_text = DbQueryingMethods.rows_info_as_text(query_results_overlap)
+            return_text = DbQueryingMethodsDegree.rows_info_as_text(query_results_overlap)
         
         # print results for user
         dispatcher.utter_message(text=str(return_text))
@@ -148,7 +138,7 @@ class DbQueryingMethods:
         # get a list of all distinct values from our target column
         fuzzy_match_cur = conn.cursor()
         fuzzy_match_cur.execute(f"""SELECT DISTINCT {slot_name} 
-                                FROM eduresources""")
+                                FROM Faculty""")
         column_values = fuzzy_match_cur.fetchall()
 
         top_match = process.extractOne(slot_value, column_values)
@@ -162,7 +152,7 @@ class DbQueryingMethods:
         :return:
         """
         cur = conn.cursor()
-        cur.execute(f'''SELECT * FROM eduresources
+        cur.execute(f'''SELECT * FROM Faculty
                     WHERE {slot_name}="{slot_value}"''')
 
         # return an array
@@ -206,3 +196,71 @@ class ActionGreet(Action):
             username = sentence.title()
         logging.debug("*** ActionGreet: Name saved as: " + username)
         return [SlotSet("username", username)]
+
+
+
+
+
+
+
+class DbQueryingMethodsDegree:
+    def create_connection(db_file):
+        """ 
+        create a database connection to the SQLite database
+        specified by the db_file
+        :param db_file: database file
+        :return: Connection object or None
+        """
+        conn = None
+        try:
+            conn = sqlite3.connect(db_file)
+        except Error as e:
+            print(e)
+
+        return conn
+
+    def get_closest_value(conn, slot_name, slot_value):
+        """ Given a database column & text input, find the closest 
+        match for the input in the column.
+        """
+        # get a list of all distinct values from our target column
+        fuzzy_match_cur = conn.cursor()
+        fuzzy_match_cur.execute(f"""SELECT DISTINCT {slot_name} 
+                                FROM StudentDegree INNER JOIN Student ON Student.id = StudentDegree.student
+                                INNER JOIN Course ON Course.id = StudentDegree.course  """)
+        column_values = fuzzy_match_cur.fetchall()
+
+        top_match = process.extractOne(slot_value, column_values)
+
+        return(top_match[0])
+
+    def select_by_slot(conn, slot_name, slot_value):
+        """
+        Query all rows in the tasks table
+        :param conn: the Connection object
+        :return:
+        """
+        cur = conn.cursor()
+        cur.execute(f'''SELECT DISTINCT {slot_name} 
+                    FROM StudentDegree INNER JOIN Student ON Student.id = StudentDegree.student
+                    INNER JOIN Course ON Course.id = StudentDegree.course 
+                    WHERE {slot_name}="{slot_value}"''')
+
+        # return an array
+        rows = cur.fetchall()
+
+        return(rows)
+
+    def rows_info_as_text(rows):
+        """
+        Return one of the rows (randomly selcted) passed in 
+        as a human-readable text. If there are no rows, returns
+        text to that effect.
+        """
+        if len(list(rows)) < 1:
+            return "There are no resources matching your query."
+        else:
+            for row in random.sample(rows, 1):
+                return f"Try the {(row[4]).lower()} {row[0]} by {row[1]}. You can find it at {row[2]}."
+
+
