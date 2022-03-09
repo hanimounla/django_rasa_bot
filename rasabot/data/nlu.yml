@@ -628,7 +628,7 @@ nlu:
     - [ankita](username)
     - myself [anuja](username)
     - myself [asha](username)
-    - myself[Lisa](username)
+    - myself [Lisa](username)
     - my name is Arun
     - my name is [savita](username)
     - my name is [sara](username)
@@ -636,17 +636,17 @@ nlu:
     - [arjun](username)
     - my name is [satya](username)
     - my name is [rahaf](username)
-    - [hyam]
-    - [kiran]
-    - [anagha]
-    - [sameer]
-    - [yogendra]
-    - [sundous]
-    - [lisa]
-    - [enas]
-    - [sam]
-    - [Leen]
-    - [Nour]
+    - [hyam](username)
+    - [kiran](username)
+    - [anagha](username)
+    - [sameer](username)
+    - [yogendra](username)
+    - [sundous](username)
+    - [lisa](username)
+    - [enas](username)
+    - [sam](username)
+    - [Leen](username)
+    - [Nour](username)
     - [Hani](username)
     - I'm [John](username)
     - [aladdin](username)
@@ -1036,17 +1036,13 @@ nlu:
     - can you understand ?
     - cannot see
     - chgfhgh
-    - [chinese]](language) ok?
+    - [chinese](language) ok?
     - colder
-
-
-
-
-
-
 
 - intent: degree
   examples: |
-  - What is my degree in [programming] (course_name)
-  - What is my degree in [history] (course_name)
-  - What is my degree in [machine learning] (course_name)
+    - What is my degree in [programming](course_name)
+    - What is my degree in [history](course_name)
+    - What is my degree in [machine learning](course_name)
+
+

@@ -1,3 +1,4 @@
 Django
 rasa
 django-cors-headers 
+fuzzywuzzy
