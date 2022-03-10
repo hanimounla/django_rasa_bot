@@ -1,112 +1,41 @@
 version: "3.0"
 
-config:
-  store_entities_as_slots: true
-session_config:
-  session_expiration_time: 60
-  carry_over_slots_to_new_session: true
-
 intents:
-  - greet:
-    use_entities: true
-
-  - goodbye:
-    use_entities: true
-
-  - affirm:
-    use_entities: true
-
-  - deny:
-    use_entities: true
-
-  - bot_challenge:
-    use_entities: true
-  - how_to:
-    use_entities: true
-
-  - about_us:
-    use_entities: true
-
-  - scholarship:
-    use_entities: true
-
-  - college:
-    use_entities: true
-
-  - branche:
-    use_entities: true
-
-  - academic_period:
-    use_entities: true
-
-  - connect_us:
-    use_entities: true
-
-
-  - students_affair:
-    use_entities: true
-
-  - hostel:
-    use_entities: true
-
-  - approved_system:
-    use_entities: true
-
-  - houres_system:
-    use_entities: true
-
-  - feedback_and_did_that_help:
-    use_entities: true
-
-  - financial_reward:
-    use_entities: true
-
-  - costs:
-    use_entities: true
-
-  - semester:
-    use_entities: true
-
-  - basic_semester:
-    use_entities: true
-
-  - summer_semester:
-    use_entities: true
-
-  - register_new_student:
-    use_entities: true
-
-  - academic_averages_new_std:
-    use_entities: true
-
-  - conversion_to_ASPU:
-    use_entities: true  
-
-  - graduate_studies:
-    use_entities: true
-
-  - diploma:
-    use_entities: true
-
-  - masters:
-    use_entities: true
-
-  - PhD:
-    use_entities: true
-    
-  - username:
-    use_entities: true
-
-  - out_of_scope:
-    use_entities: true
-
-  - degree:
-    use_entities: true
-
+  - greet
+  - goodbye
+  - affirm
+  - deny
+  - bot_challenge
+  - how_to
+  - about_us
+  - scholarship
+  - college
+  - branche
+  - academic_period
+  - connect_us
+  - students_affair
+  - hostel
+  - approved_system
+  - houres_system
+  - feedback_and_did_that_help
+  - financial_reward
+  - costs
+  - semester
+  - basic_semester
+  - summer_semester
+  - register_new_student
+  - academic_averages_new_std
+  - conversion_to_ASPU
+  - graduate_studies
+  - diploma
+  - masters
+  - PhD
+  - username
+  - out_of_scope
+  - degree
 
 
 entities:
-  - university_name
   - specialization
   - college_type
   - location
@@ -120,7 +49,6 @@ entities:
   - company
   - language
   - product
-  - course_name
 
 slots:
   username:
@@ -129,22 +57,31 @@ slots:
     mappings:
     - type: custom
   
-  specialization:
-    type: text
-    mappings:
-    - type: custom
-    initial_value: null
-    #auto_fill: true
-    influence_conversation: false
 
 
-  course_name:
-    type: text
-    mappings:
-    - type: custom
-    initial_value: null
-   # auto_fill: true
-    influence_conversation: false
+# slots:
+#   username:
+#     initial_value: Human
+#     type: text
+#     mappings:
+#     - type: custom
+  
+#   specialization:
+#     type: text
+#     mappings:
+#     - type: custom
+#     initial_value: null
+#     #auto_fill: true
+#     influence_conversation: false
+
+
+#   course_name:
+#     type: text
+#     mappings:
+#     - type: custom
+#     initial_value: null
+#    # auto_fill: true
+#     influence_conversation: false
   
 responses:
   utter_connect_email: 
@@ -378,4 +315,11 @@ session_config:
 
 
 
+
+
+# config:
+#   store_entities_as_slots: true
+# session_config:
+#   session_expiration_time: 60
+#   carry_over_slots_to_new_session: true
 
