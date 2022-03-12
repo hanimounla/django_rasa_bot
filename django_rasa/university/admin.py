@@ -9,12 +9,14 @@ class FacultyAdmin(admin.ModelAdmin):
 class StudntDegreeAdmin(admin.ModelAdmin):
     list_filter = ("course", "student", "degree")
     
-    
+class PreCourseAdmin(admin.ModelAdmin):
+    list_filter = ("course", "prev_course")
+   
 admin.site.register(University)
 admin.site.register(Faculty, FacultyAdmin)
 admin.site.register(Branche)
 admin.site.register(Course)
-admin.site.register(Pre_Course)
+admin.site.register(PreCourse,PreCourseAdmin)
 admin.site.register(Class)
 admin.site.register(StudentDegree, StudntDegreeAdmin)
 

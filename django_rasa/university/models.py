@@ -63,7 +63,7 @@ class Course(models.Model):
         verbose_name = "Course"
         verbose_name_plural = "Courses"
 
-class Pre_Course(models.Model):
+class PreCourse(models.Model):
 
     course = models.ForeignKey(Course, verbose_name="Course",on_delete=models.SET_NULL, 
         null=True, blank=True,related_name="course"
@@ -78,6 +78,9 @@ class Pre_Course(models.Model):
     )
 
 
+    def __str__(self):
+        return f"Course: {self.course}"
+    
     class Meta:
         verbose_name = "Previous Course"
         verbose_name_plural = "Previous Courses"
