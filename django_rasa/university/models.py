@@ -64,7 +64,7 @@ class Course(models.Model):
         verbose_name_plural = "Courses"
 
 class Pre_Course(models.Model):
-    
+    course = models.ForeignKey(Course, verbose_name="Course",on_delete=models.SET_NULL, null=True)
     prev_course = models.ForeignKey(Course, verbose_name="Previous Course",on_delete=models.SET_NULL, null=True)
 
 

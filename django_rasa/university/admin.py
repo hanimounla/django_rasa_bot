@@ -14,5 +14,8 @@ admin.site.register(University)
 admin.site.register(Faculty, FacultyAdmin)
 admin.site.register(Branche)
 admin.site.register(Course)
+admin.site.register(Pre_Course)
 admin.site.register(Class)
 admin.site.register(StudentDegree, StudntDegreeAdmin)
+
+
