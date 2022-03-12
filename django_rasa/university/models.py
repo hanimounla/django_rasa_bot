@@ -45,7 +45,9 @@ class Faculty(models.Model):
 
 
 class Course(models.Model):
-    title = models.CharField("Course Title", max_length=50,unique=True)
+
+    title = models.CharField("Course Title", max_length=50)
+    num = models.CharField("Course Number", max_length=50, unique=True)
     total_hours = models.IntegerField("Total Course Hours")
     faculties = models.ManyToManyField(Faculty, related_name="faculty")
     # prev_course = models.ForeignKey(
@@ -56,12 +58,16 @@ class Course(models.Model):
     #     null=True,
     #     blank=True,
     # )
+
+
     def __str__(self):
-        return self.title
+        return self.num
+
 
     class Meta:
         verbose_name = "Course"
         verbose_name_plural = "Courses"
+
 
 class PreCourse(models.Model):
 
