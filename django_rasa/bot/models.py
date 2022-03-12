@@ -36,13 +36,13 @@ def create_bot_files():
         domain_string += "\n \n"
     save_file(domain_string, domain_file_path)
     
-    stories_string = "version: \"3.0\" \n \stories: \n"
+    stories_string = "version: \"3.0\" \n \nstories: \n"
     
     for story in Story.objects.all():
-        stories_string += f"- story: {story.story_title}\n steps: \n"
-        for action in Action.objects.filter(stroy=story):
-            stories_string += f"    - action: {action.title}"
-    stories_string += "\n \n"
+        stories_string += f"- story: {story.title}\n steps: \n"
+        for action in Action.objects.filter(story=story):
+            stories_string += f"    - action: {action.title} \n"
+        stories_string += "\n \n"
     save_file(stories_string, stories_file_path)
     
 class QuestionCategory(models.Model):
@@ -52,8 +52,8 @@ class QuestionCategory(models.Model):
         return self.name
     
     def save(self, *args, **kwargs):
-        create_bot_files()
         super().save(*args, **kwargs)
+        create_bot_files()
 
     class Meta:
         verbose_name = "Question Category"
@@ -70,8 +70,8 @@ class Question(models.Model):
         return self.question_text
     
     def save(self, *args, **kwargs):
-        create_bot_files()
         super().save(*args, **kwargs)
+        create_bot_files()
 
     class Meta:
         verbose_name = "Question"
@@ -86,8 +86,8 @@ class Answer(models.Model):
         return self.answer_text
     
     def save(self, *args, **kwargs):
-        create_bot_files()
         super().save(*args, **kwargs)
+        create_bot_files()
 
     class Meta:
         verbose_name = "Answer"
@@ -102,8 +102,8 @@ class Story(models.Model):
         return self.title
     
     def save(self, *args, **kwargs):
-        create_bot_files()
         super().save(*args, **kwargs)
+        create_bot_files()
 
     class Meta:
         verbose_name = "Story"
@@ -118,8 +118,8 @@ class Action(models.Model):
         return self.title
     
     def save(self, *args, **kwargs):
-        create_bot_files()
         super().save(*args, **kwargs)
+        create_bot_files()
 
     class Meta:
         verbose_name = "Action"

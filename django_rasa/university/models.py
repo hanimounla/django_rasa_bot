@@ -47,7 +47,7 @@ class Faculty(models.Model):
 class Course(models.Model):
 
     title = models.CharField("Course Title", max_length=50)
-    num = models.CharField("Course Number", max_length=50, unique=True)
+    num = models.CharField("Course Number", max_length=50, default=0)
     total_hours = models.IntegerField("Total Course Hours")
     faculties = models.ManyToManyField(Faculty, related_name="faculty")
     # prev_course = models.ForeignKey(
