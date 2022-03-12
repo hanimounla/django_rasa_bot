@@ -48,14 +48,14 @@ class Course(models.Model):
     title = models.CharField("Course Title", max_length=50,unique=True)
     total_hours = models.IntegerField("Total Course Hours")
     faculties = models.ManyToManyField(Faculty, related_name="faculty")
-    prev_course = models.ForeignKey(
-        "self",
-        verbose_name="Previous Course",
-        related_name="previous_course",
-        on_delete=models.SET_NULL,
-        null=True,
-        blank=True,
-    )
+    # prev_course = models.ForeignKey(
+    #     "self",
+    #     verbose_name="Previous Course",
+    #     related_name="previous_course",
+    #     on_delete=models.SET_NULL,
+    #     null=True,
+    #     blank=True,
+    # )
     def __str__(self):
         return self.title
 
@@ -64,10 +64,18 @@ class Course(models.Model):
         verbose_name_plural = "Courses"
 
 class Pre_Course(models.Model):
-    course = models.ForeignKey(Course, verbose_name="Course",on_delete=models.SET_NULL, null=True)
-    prev_course = models.ForeignKey(Course, verbose_name="Previous Course",on_delete=models.SET_NULL, null=True)
+
+    course = models.ForeignKey(Course, verbose_name="Course",on_delete=models.SET_NULL, 
+        null=True, blank=True,related_name="course"
+    )
 
 
+    prev_course = models.ForeignKey(Course, verbose_name= "Previous Course",
+        related_name="previous_course",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True 
+    )
     def __str__(self):
         return self.title
 
