@@ -45,7 +45,7 @@ class Faculty(models.Model):
 
 
 class Course(models.Model):
-    title = models.CharField("Course Title", max_length=50)
+    title = models.CharField("Course Title", max_length=50,unique=True)
     total_hours = models.IntegerField("Total Course Hours")
     faculties = models.ManyToManyField(Faculty, related_name="faculty")
     prev_course = models.ForeignKey(
@@ -56,7 +56,6 @@ class Course(models.Model):
         null=True,
         blank=True,
     )
-
     def __str__(self):
         return self.title
 
@@ -64,10 +63,33 @@ class Course(models.Model):
         verbose_name = "Course"
         verbose_name_plural = "Courses"
 
+class Pre_Course(models.Model):
+    
+    prev_course = models.ForeignKey(Course, verbose_name="Previous Course",on_delete=models.SET_NULL, null=True)
+
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        verbose_name = "Previous Course"
+        verbose_name_plural = "Previous Courses"
+    
+
 
 class Class(models.Model):
+
+    MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY = "  Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"
+    DAYS_OF_WEEK = (
+        (MONDAY, "Monday"), (TUESDAY, "Tuesday"),
+        (WEDNESDAY, "Wednesday"),(THURSDAY, "Thursday"),(FRIDAY, "Friday"),
+        (SATURDAY, "Saturday"),(SUNDAY, "Sunday")
+    )
+
+    claas_day = models.CharField("Class Day", choices=DAYS_OF_WEEK, max_length=10, default=SUNDAY)
     title = models.CharField("Class Title", max_length=50)
-    class_date = models.DateField("Class Date", null=True, blank=True)
+    start_time = models.TimeField("Class start time",auto_now=False, auto_now_add=False, null=True, blank=True)
+    end_time = models.TimeField("Class end time",auto_now=False, auto_now_add=False, null=True, blank=True)
     branche = models.ForeignKey(
         Branche, verbose_name="branche", on_delete=models.SET_NULL, null=True
     )
