@@ -15,6 +15,7 @@ class User(AbstractUser):
     gender = models.CharField(
         "Gender", choices=GENDER_OPTIONS, max_length=10, default=MALE
     )
+    email = models.EmailField ("Email", null=False, blank=False)
     address = models.CharField("Address", max_length=100, null=True, blank=True)
     nationality = models.CharField("Nationality", max_length=100, null=True, blank=True)
     birth_date = models.DateField("Birth Date", null=True, blank=True)
