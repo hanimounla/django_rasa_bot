@@ -32,7 +32,8 @@ def create_bot_files():
             try:
                 domain_string += f"    - text: {Answer.objects.get(question=question)} \n"
             except:
-                pass
+                for answer in Answer.objects.filter(question=question):
+                    domain_string += f"    - text: {answer} \n"
         domain_string += "\n \n"
     save_file(domain_string, domain_file_path)
     
