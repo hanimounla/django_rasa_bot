@@ -41,6 +41,8 @@ def create_bot_files():
     
     for story in Story.objects.all():
         stories_string += f"- story: {story.title}\n steps: \n"
+        for intent in Intent.objects.filter(story=story):
+            stories_string += f"    - intent: {intent.title} \n"
         for action in Action.objects.filter(story=story):
             stories_string += f"    - action: {action.title} \n"
         stories_string += "\n \n"
@@ -125,3 +127,19 @@ class Action(models.Model):
     class Meta:
         verbose_name = "Action"
         verbose_name_plural = "Actions"
+
+
+class Intent(models.Model):
+    title = models.CharField("Action Title", max_length=50)
+    story = models.ForeignKey(Story, on_delete=models.CASCADE, null=True, blank=True)
+    
+    def __str__(self):
+        return self.title
+    
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        create_bot_files()
+
+    class Meta:
+        verbose_name = "Intent"
+        verbose_name_plural = "Intents"
